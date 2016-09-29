@@ -1,16 +1,20 @@
 $(document).ready(function() {
+
+    // Change Navigation Background on Scroll
     var scroll_start = 0;
-    var startchange = $('#nav');
-    var offset = startchange.offset();
+    var nav = $('#nav');
+    var offset = nav.offset();
     $(document).scroll(function() {
         scroll_start = $(this).scrollTop();
         if (scroll_start > offset.top) {
             $('#nav').css('background-color', '#02182b')
-            $('#nav').css('opacity', '0.8');
+            $('#nav').css('opacity', '0.9');
         } else {
             $('#nav').css('background-color', 'transparent');
         }
     });
+
+    // Navigation Scroll Effect when Click on Location
     $('a[href^="#"]').on('click', function(e) {
         e.preventDefault();
         var target = this.hash;
@@ -21,8 +25,9 @@ $(document).ready(function() {
             window.location.hash = target;
         });
     });
+
+    // Add Active State on Location Clicked - Navigation
     var sections = $('section'),
-        nav = $('nav'),
         nav_height = nav.outerHeight();
     $(window).on('scroll', function() {
         var cur_pos = $(this).scrollTop();
@@ -39,6 +44,7 @@ $(document).ready(function() {
         });
     });
 
+    // Paralax Scrolling for Header
     function parallax() {
         var scrolled = $(window).scrollTop();
         $('.header').css('top', +(scrolled * 0.5) + 'px');
@@ -47,6 +53,8 @@ $(document).ready(function() {
         parallax();
     });
 
+
+    // Hover Effect for Portfolio Grid
     $('.grid-box').mouseenter(function(){
       $('img', this).addClass('image-hover');
       $('.caption-box', this).addClass('caption-hover');
@@ -56,6 +64,7 @@ $(document).ready(function() {
       $('.caption-box', this).removeClass('caption-hover');
     });
 
+// Categorize Portfolio 
   // Digital
     $('.digital-button').on('click', function() {
 
