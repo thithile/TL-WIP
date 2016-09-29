@@ -1,0 +1,116 @@
+$(document).ready(function() {
+    var scroll_start = 0;
+    var startchange = $('#nav');
+    var offset = startchange.offset();
+    $(document).scroll(function() {
+        scroll_start = $(this).scrollTop();
+        if (scroll_start > offset.top) {
+            $('#nav').css('background-color', '#02182b')
+            $('#nav').css('opacity', '0.8');
+        } else {
+            $('#nav').css('background-color', 'transparent');
+        }
+    });
+    $('a[href^="#"]').on('click', function(e) {
+        e.preventDefault();
+        var target = this.hash;
+        var $target = $(target);
+        $('html, body').stop().animate({
+            'scrollTop': $target.offset().top
+        }, 900, 'swing', function() {
+            window.location.hash = target;
+        });
+    });
+    var sections = $('section'),
+        nav = $('nav'),
+        nav_height = nav.outerHeight();
+    $(window).on('scroll', function() {
+        var cur_pos = $(this).scrollTop();
+        sections.each(function() {
+            var top = $(this).offset().top - nav_height,
+                bottom = top + $(this).outerHeight();
+            if (cur_pos >= top && cur_pos <= bottom) {
+                nav.find('a').removeClass('active');
+                sections.removeClass('active');
+                $(this).addClass('active');
+                nav.find('a[href="#' + $(this).attr(
+                    'id') + '"]').addClass('active');
+            }
+        });
+    });
+
+    function parallax() {
+        var scrolled = $(window).scrollTop();
+        $('.header').css('top', +(scrolled * 0.5) + 'px');
+    }
+    $(window).scroll(function(e) {
+        parallax();
+    });
+
+    $('.grid-box').mouseenter(function(){
+      $('img', this).addClass('image-hover');
+      $('.caption-box', this).addClass('caption-hover');
+    });
+    $('.grid-box').mouseleave(function(){
+      $('img', this).removeClass('image-hover');
+      $('.caption-box', this).removeClass('caption-hover');
+    });
+
+  // Digital
+    $('.digital-button').on('click', function() {
+
+      // Check if other buttons are selected
+        if ($('.art-button, .dev-button').hasClass('category-active')) {
+            $('.art-button, .dev-button').removeClass('category-active');
+            $('.art, .dev').hide();
+
+          // Grab the category
+            $('.digital').slideToggle();
+            $(this).toggleClass('category-active');
+
+        } else {
+          // Grab the category
+            $(this).toggleClass('category-active');
+            $('.art, .dev').slideToggle();
+        };
+    });
+
+  // Art/Print
+    $('.art-button').on('click', function() {
+
+      // Check if other buttons are selected
+        if ($('.digital-button, .dev-button').hasClass('category-active')) {
+            $('.digital-button, .dev-button').removeClass('category-active');
+            $('.digital, .dev').hide();
+
+          // Grab the category
+            $('.art').slideToggle();
+            $(this).toggleClass('category-active');
+
+        } else {
+          // Grab the category
+            $(this).toggleClass('category-active');
+            $('.digital, .dev').slideToggle();
+        };
+    });
+
+  // Development
+    $('.dev-button').on('click', function() {
+
+      // Check if other buttons are selected
+        if ($('.digital-button, .art-button').hasClass('category-active')) {
+            $('.digital-button, .art-button').removeClass('category-active');
+            $('.digital, .art').hide();
+
+          // Grab the category
+            $('.dev').slideToggle();
+            $(this).toggleClass('category-active');
+        } else {
+
+          // Grab the category
+            $(this).toggleClass('category-active');
+            $('.digital, .art').slideToggle();
+        };
+    });
+
+})
