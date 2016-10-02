@@ -1,3 +1,5 @@
+// Thanks to http://tympanus.net/Development/AnimatedHeaderBackgrounds/ for the tutorial
+
 (function() {
 
     var width, height, largeHeader, canvas, ctx, points, target, animateHeader = true;
